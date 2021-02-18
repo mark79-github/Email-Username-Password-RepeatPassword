@@ -1,16 +1,16 @@
-const {username, password, db, privateKey} = require('./credentials.js');
+const {username, password, db, server, privateKey} = require('./credentials.js');
 
 const config = {
     development: {
         PORT: 3000,
-        DB: `mongodb://127.0.0.1/${db}`,
+        DB: `mongodb://${server}/${db}`,
         saltRounds: 10,
         authCookie: 'jwt-auth-cookie',
         privateKey,
     },
     production: {
         PORT: 80,
-        DB: `mongodb+srv://${username}:${password}@cluster0.nbulj.mongodb.net/${db}?retryWrites=true&w=majority`,
+        DB: `mongodb+srv://${username}:${password}@${server}/${db}?retryWrites=true&w=majority`,
         saltRounds: 7,
         authCookie: 'jwt-auth-cookie',
         privateKey,
