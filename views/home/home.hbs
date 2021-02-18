@@ -1,6 +1,7 @@
 <main>
     <ul style="list-style: none; padding-left: 0">
         {{#if isLogged}}
+            <li>{{email}}</li>
             <li>{{username}}</li>
             <li><a href="/users/logout">Logout</a></li>
         {{else}}

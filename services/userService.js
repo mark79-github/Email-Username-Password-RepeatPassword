@@ -2,12 +2,15 @@ const {User} = require('../models');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 const {msg} = require('../config/constants');
+const {normalizeEmail} = require('validator');
 
 // const bcrypt = require('bcrypt');
 
 async function register(data) {
 
-    const {email} = data;
+    let {email, username, password} = data;
+    email = normalizeEmail(email);
+    username = username.toLowerCase();
 
     // let user = await User.findOne({username});
     // if (user) throw {message: 'Username is in use'};
@@ -20,12 +23,13 @@ async function register(data) {
             if (user) {
                 throw {message: msg.EMAIL_IS_IN_USE(email)}
             }
-            return new User(data).save();
+            return new User({email, username, password}).save();
         });
 }
 
 function login(data) {
-    const {email, password} = data;
+    let {email, password} = data;
+    email = normalizeEmail(email);
 
     // let user = await User.findOne({username}) || {};
     // let isMatch = await bcrypt.compare(password, user.password || '');
@@ -55,7 +59,7 @@ function login(data) {
                 return jwt.sign({
                     id: user._id,
                     email: user.email,
-                    username: user.username
+                    username: user.username,
                 }, config.privateKey, {expiresIn: "1h"});
             } else {
                 return '';

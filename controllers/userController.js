@@ -29,7 +29,7 @@ router.post('/login', isGuest, validate.user.login, (req, res) => {
             }
             return res
                 .cookie(config.authCookie, token, cookieOptions)
-                .redirect('/products');
+                .redirect('/');
         })
         .catch((error) => {
             res.render('users/login', {message: error.message});
@@ -47,6 +47,23 @@ router.post('/register', isGuest, validate.user.register, (req, res) => {
     // } catch (err) {
     //     res.render('users/register', {message: err.message});
     // }
+
+    // register + login
+    // userService.register(req.body)
+    //     .then(() => {
+    //         return userService.login(req.body)
+    //     })
+    //     .then((token) => {
+    //         if (!token) {
+    //             throw {message: msg.WRONG_CREDENTIALS};
+    //         }
+    //         const cookieOptions = {maxAge: 1000 * 60 * 60, httpOnly: true}
+    //         res.cookie(config.authCookie, token, cookieOptions);
+    //         return res.redirect('/');
+    //     })
+    //     .catch(error => {
+    //         res.render('users/register', {message: error.message});
+    //     });
 
     userService.register(req.body)
         .then(() => {
