@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const config = require('./config');
 const {msg} = require('./constants');
 
+mongoose.set('strictQuery', false);
+
 const dbConnectionOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
 }
 
 // # 1
