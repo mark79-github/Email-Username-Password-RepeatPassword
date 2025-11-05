@@ -22,14 +22,23 @@ const dbConnectionOptions = {
 // });
 
 // # 2
-mongoose.connect(config.DB, dbConnectionOptions)
-    .then((res) => console.log(msg.DB_CONNECTED(res.connections[0].host, res.connections[0].name)))
-    .catch(console.warn.bind(console, msg.DB_CONNECTION_ERROR));
+// mongoose.connect(config.DB, dbConnectionOptions)
+//     .then((res) => console.log(msg.DB_CONNECTED(res.connections[0].host, res.connections[0].name)))
+//     .catch(console.warn.bind(console, msg.DB_CONNECTION_ERROR));
 
 // # 3
 // mongoose.connect(config.DB, dbConnectionOptions)
 // mongoose.connection
 //     .on('error', console.warn.bind(console, 'connection error:'))
 //     .once('open', console.log.bind(console, 'db connected ...'));
+
+// # 4
+mongoose.connect(config.DB, dbConnectionOptions, (err, res) => {
+    if (err) {
+        console.warn(msg.DB_CONNECTION_ERROR, err);
+    } else {
+        console.log(msg.DB_CONNECTED(res.connections[0].host, res.connections[0].name));
+    }
+});
 
 module.exports = mongoose.connection;
