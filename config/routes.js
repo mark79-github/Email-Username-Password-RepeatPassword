@@ -5,6 +5,6 @@ const {userController, homeController, errorController} = require('../controller
 
 router.use('/', homeController);
 router.use('/users', userController);
-router.use('*', errorController);
+router.use(errorController);
 
 module.exports = router;
